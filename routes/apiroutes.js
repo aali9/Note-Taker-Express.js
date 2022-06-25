@@ -25,3 +25,25 @@ router.get('/api/notes', (req, res) => {
     })
 })
 
+// remove from array of objects
+
+   router.delete('/api/notes/:id', (req, res)=>{
+    fs.readFile('db/db.json', 'utf8', (err,data)=>{
+        if (err)throw err
+        const dbData = JSON.parse(data)
+        const noteId = req.params.id
+
+        for (let i=0 ;i<dbData.length; i++){
+            if(noteId ===dbData[i].id){
+                dbData.splice([i],1)
+                fs.writeFile('db/db.json', JSON.stringify (db), (err)=>{
+                    if (err) throw err
+                    res.json (db)
+                })
+            }
+        }
+    })
+
+   })
+
+   module.exports = router
