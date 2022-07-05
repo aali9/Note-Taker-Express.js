@@ -7,21 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aali9/Note-Taker-Express.js.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aali9/Note-Taker-Express.js/issues"
-  },
-  "homepage": "https://github.com/aali9/Note-Taker-Express.js#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "inquirer": "^9.0.0",
-    "nodemon": "^2.0.18",
-    "uniqueid": "^1.0.0"
+    "uuidv1": "^1.6.14"
   }
 }
