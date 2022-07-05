@@ -1,46 +1,38 @@
-const router = require("express").Router();
+const express = require ("express");
+const router = express.Router();
 const fs = require("fs");
-const uniqueid = require("uniqueid");
+const uuid = require("uuid");
 
-router.get("/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf8", (err, data) => {
-    if (err) throw err;
-    return res.json(JSON.parse(data));
-  });
-});
-// adds note to arrays of objects in db.json
 
-router.post("/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf8", (err, data) => {
-    if (err) throw err;
-    const db = JSON.parse(data);
-    req.body.id = uniqueid();
-    db.push(req.body);
-    fs.writeFile("db/db.json", JSON.stringify(db), (err) => {
-      if (err) throw err;
-      res.json(db);
+/* Get function to return data. */
+router.get("/api/notes", (req, res) => {
+    fs.readFile("db/db.json", "utf-8", (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.json(JSON.parse(data));
+      }
     });
   });
-});
-
-// remove from array of objects
-
-router.delete("/notes/:id", (req, res) => {
-  fs.readFile("db/db.json", "utf8", (err, data) => {
-    if (err) throw err;
-    const dbData = JSON.parse(data);
-    const noteId = req.params.id;
-
-    for (let i = 0; i < dbData.length; i++) {
-      if (noteId === dbData[i].id) {
-        dbData.splice([i], 1);
-        fs.writeFile("db/db.json", JSON.stringify(db), (err) => {
-          if (err) throw err;
-          res.json(db);
-        });
-      }
-    }
+  
+/* Post function to add new notes. */
+router.post("/api/notes", (req, res) => {
+    const note = JSON.parse(fs.readFileSync("db/db.json"));
+    const newNote = req.body;
+    newNote.id = uuid.v4();
+    note.push(newNote);
+    fs.writeFileSync("db/db.json", JSON.stringify(note));
+    res.json(note);
   });
-});
-
-module.exports = router;
+  
+  /* Delete method to remove notes.*/
+  router.delete("/api/notes/:id", (req, res) => {
+    const note = JSON.parse(fs.readFileSync("db/db.json"));
+    const deleteNote = note.filter(
+      (removeNote) => removeNote.id !== req.params.id
+    );
+    fs.writeFileSync("db/db.json", JSON.stringify(deleteNote));
+    res.json(deleteNote);
+  });
+  
+  module.exports = router;
