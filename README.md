@@ -23,10 +23,6 @@ Click "Get Started" to go to the main note taker page
 Write both a note and note text below, then hit the save button on the top right corner
 You can add more notes by hitting the "+" sign in the top right corner
 You can delete notes by hitting the trash icon beside the note you want to delete
-Contributors
-did it only me with love.
-
-#Tests
 
 
 #Technology
@@ -47,3 +43,12 @@ did it only me with love.
 . Heroku
 
 #Links
+
+https://github.com/aali9/Note-Taker-Express.js
+https://notetakerjs2.herokuapp.com/
+
+
+#demo 
+
+![alt text](images/Picture1.png)
+![alt text](images/Picture2.png)
