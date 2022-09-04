@@ -42,11 +42,18 @@ You can delete notes by hitting the trash icon beside the note you want to delet
 
 . Heroku
 
-#Links
+## Installation
+
+Open terminal and install node modules using the following command `npm i`
+
+Enter `node server.js` in terminal to start the application. Once a port has been presented in terminal then type `localhost:3000` into browser to display the application locally. Alternatively, use the Heroku link provided in the links section below.
+
+
+## Deployed Application
+
+https://powerful-atoll-97832.herokuapp.com/notes
 
 https://github.com/aali9/Note-Taker-Express.js
-https://notetakerjs2.herokuapp.com/
-
 
 #demo 
 

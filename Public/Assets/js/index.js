@@ -58,7 +58,6 @@ const renderActiveNote = () => {
     noteText.setAttribute("readonly", true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
-    noteText.id = activeNote.id;
   } else {
     noteTitle.removeAttribute("readonly");
     noteText.removeAttribute("readonly");
@@ -84,7 +83,6 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  console.log(note);
   const noteId = JSON.parse(note.parentElement.getAttribute("data-note")).id;
 
   if (activeNote.id === noteId) {

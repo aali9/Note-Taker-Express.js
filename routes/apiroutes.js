@@ -1,58 +1,48 @@
-const router = require ("express").Router();
-const fs = require ("fs");
-const uniqid = require ("uniqid");
+const express = require("express");
+const router = express.Router();
+const fs = require("fs");
+const uniqid = require("uniqid");
 
-router.get("/notes", function (req, res) {
-    fs.readFile("./db/db.json", "utf8",  function(err,data) {
-        if(err) throw err;
-
-        return res.json(JSON.parse(data));
-    });
+router.get("/api/notes", (req, res) => {
+  fs.readFile("db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
+    return res.json(JSON.parse(data));
+  });
 });
 
-router.post ("/notes", function (req, res) {
-    fs.readFile("./db/db.json", "utf8", function (err,data) {
-        if(err) throw err;
+router.post("/api/notes", (req, res) => {
+  fs.readFile("db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
+    const dbData = JSON.parse(data);
+    const newNote = req.body;
+    const id = "id";
+    const noteId = uniqid();
+    newNote[id] = noteId;
+    dbData.push(newNote);
 
-        let raw = JSON.parse(data);
-        raw.push ({...req.body, id:uniqid ()});
+    fs.writeFile("db/db.json", JSON.stringify(dbData), (err) => {
+      if (err) throw err;
+      return res.json(dbData);
+    });
+  });
+});
 
-        fs.writeFile("./db/db.json",JSON.stringify(raw) , function (err) {
-            if (err) throw err;
-            
-            console.log("success");
+router.delete("/api/notes/:id", (req, res) => {
+  fs.readFile("db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
+    const dbData = JSON.parse(data);
+    const noteId = req.params.id;
+
+    for (let i = 0; i < dbData.length; i++) {
+      if (noteId === dbData[i].id) {
+        dbData.splice([i], 1);
+        fs.writeFile("db/db.json", JSON.stringify(dbData), (err) => {
+          if (err) throw err;
+          return res.json(dbData);
         });
-    });
-res.end ();
-
-});
-
-
-router.delete ( "/notes/:uniqid", function (req, res) {
-    let id = req.params.id;
-
-fs.readFile("./db/db.json", "utf8", function (err,data){
-    if(err) throw err;
-    
-    let raw = JSON.parse(data);
-
-    for (let i = 0; i < raw.length; i++){
-        if (id=== raw[i].id){
-            raw.splice(i,1);
-
-            fs.writeFile("./db/db.json", JSON.stringify(raw), function(err){
-                if(err) throw err;
-
-                console.log("note deleted");
-
-            });
-        }
+      }
     }
+  });
 });
-                
-res.end();
-
-});
-       
 
 module.exports = router;
