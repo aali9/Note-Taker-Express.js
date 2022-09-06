@@ -51,7 +51,6 @@ Enter `node server.js` in terminal to start the application. Once a port has bee
 
 ## Deployed Application
 
-https://powerful-atoll-97832.hheerokuapp.com/notes
 
 https://github.com/aali9/Note-Taker-Express.js
 
