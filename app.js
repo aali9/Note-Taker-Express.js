@@ -6,7 +6,7 @@ const htmlRoutes = require("./routes/htmlRoutes.js");
 
 // express server create at server port 3000
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3007;
 
 // parse date from string or array
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +18,7 @@ app.use(express.static("public"));
 // routes
 app.use("/api", apiRoutes);
 app.use("/", htmlRoutes);
+
 
 // event listener
 app.listen(PORT, () => {
